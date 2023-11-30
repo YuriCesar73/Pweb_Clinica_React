@@ -7,6 +7,6 @@ import Formulario from './components/formulario'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Paciente/>
+    <Formulario/>
   </React.StrictMode>,
 )

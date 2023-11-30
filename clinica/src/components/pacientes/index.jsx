@@ -23,15 +23,15 @@ function Paciente(){
                 <h2>Email: {paciente.paciente}</h2>
                 <h2>Nome: {paciente.cpf}</h2>
                 <button>Marcar consulta</button>
-                 <button onClick={() => apagarMedico(paciente.cpf)}>Deletar</button>
+                 <button onClick={() => removerPaciente(paciente.cpf)}>Deletar</button>
         
             </div>
         )
     }
 
-    function apagarMedico(cpf){
+    function removerPaciente(cpf){
 
-        let url = `paciente-ms/pacientes/apagar/15987`;
+        let url = `paciente-ms/pacientes/apagar/${cpf}`;
         async function apiDelete(){
                 API.delete(url).then((response) => {
                     if(response.status == 202){
