@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "/src/API/api.jsx"
+import axios from "axios";
 
 
 function Paciente(){
@@ -21,20 +22,26 @@ function Paciente(){
                 <h2>Nome: {paciente.nome}</h2>
                 <h2>Email: {paciente.paciente}</h2>
                 <h2>Nome: {paciente.cpf}</h2>
+                <button>Marcar consulta</button>
+                 <button onClick={() => apagarMedico(paciente.cpf)}>Deletar</button>
+        
             </div>
         )
     }
 
-    function apagarMedico(){
-        console.log("Cheguei aqui")
+    function apagarMedico(cpf){
 
-        let url = "paciente-ms/pacientes/apagar/12345678909"
-
+        let url = `paciente-ms/pacientes/apagar/15987`;
         async function apiDelete(){
-            await API.delete(url).then((response) => {
-                console.log(response.data);
-                console.log(response.status);
-                
+                API.delete(url).then((response) => {
+                    if(response.status == 202){
+                        let listaAtualizada = pacientes.filter(paciente => paciente.cpf != cpf)
+                        setPaciente(listaAtualizada);
+                    }
+            }).catch((error) => {
+                console.log("Entrei no error");
+                console.log(error.response.data.message)
+                //console.log(error.data);
             })
         }
 
@@ -45,9 +52,6 @@ function Paciente(){
         <>
         <h1>Olá</h1>
         {pacientes.map((paciente) => <a key={paciente.cpf}> {listarPacientes(paciente)} </a>)}
-        <button>Adicionar</button>
-        <button onClick={() => apagarMedico()}>Deletar</button>
-        
         </>
     )
 
