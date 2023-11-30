@@ -1,5 +1,5 @@
 
-function Formulario() {
+function FormularioPaciente() {
     const onSubmit = () => {};
 
     return(
@@ -11,54 +11,54 @@ function Formulario() {
                 <fieldset>
                     <div>
                         <label htmlFor="Nome"></label>
-                        <input type="text" placeholder="Nome" id="nome" />
+                        <input type="text" placeholder="* Nome" id="nome" required/>
                     </div>
 
                     <div>
                         <label htmlFor="CPF"></label>
-                        <input type="text" placeholder="CPF" id="cpf" />
+                        <input type="text" placeholder="* CPF" id="cpf" required/>
                     </div>
 
                     <div>
                         <label htmlFor="Email"></label>
-                        <input type="email" placeholder="Email" id="email" />
+                        <input type="email" placeholder="* Email" id="email" required/>
                     </div>
 
                     <div>
                         <label htmlFor="Telefone"></label>
-                        <input type="text" placeholder="Telefone" id="telefone" />
+                        <input type="text" placeholder="* Telefone" id="telefone" required/>
                     </div>
                 </fieldset>
 
                 <fieldset>
                     <div>
                         <label htmlFor="UF"></label>
-                        <input type="text" placeholder="UF" id="UF" />
+                        <input type="text" placeholder="* UF" id="UF" required/>
                     </div>
 
                     <div>
                         <label htmlFor="Cidade"></label>
-                        <input type="text" placeholder="Cidade" id="Cidade" />
+                        <input type="text" placeholder="* Cidade" id="Cidade" required/>
                     </div>
 
                     <div>
                         <label htmlFor="Bairro"></label>
-                        <input type="text" placeholder="Bairro" id="Bairro" />
+                        <input type="text" placeholder="* Bairro" id="Bairro" required/>
                     </div>
 
                     <div>
                         <label htmlFor="CEP"></label>
-                        <input type="text" placeholder="CEP" id="CEP" />
+                        <input type="text" placeholder="* CEP" id="CEP" required/>
                     </div>
 
                     <div>
                         <label htmlFor="Logradouro"></label>
-                        <input type="text" placeholder="Logradouro" id="Logradouro" />
+                        <input type="text" placeholder="* Logradouro" id="Logradouro" required/>
                     </div>
 
                     <div>
                         <label htmlFor="Numero"></label>
-                        <input type="number" placeholder="Numero" id="Numero" />
+                        <input type="number" placeholder="Numero" id="Numero"/>
                     </div>
 
                     <div>
@@ -72,7 +72,7 @@ function Formulario() {
         </div>
     )
     
-}export default Formulario;
+}export default FormularioPaciente;
 
 
 /*
