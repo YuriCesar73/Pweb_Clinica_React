@@ -89,7 +89,7 @@ function FormularioPaciente() {
 
                     <div>
                         <label htmlFor="Telefone"></label>
-                        <input type="text" placeholder="* Telefone" id="telefone" value={pacienteFormulario.telefone} onChange={handleInputChange} required/>
+                        <input type="tel" placeholder="* Telefone" id="telefone" value={pacienteFormulario.telefone} onChange={handleInputChange} required/>
                     </div>
                 </fieldset>
 
@@ -121,7 +121,7 @@ function FormularioPaciente() {
 
                     <div>
                         <label htmlFor="Numero"></label>
-                        <input type="number" placeholder="Numero" id="numero" value={pacienteFormulario.numero} onChange={handleInputChange}/>
+                        <input type="number" placeholder="Numero" id="numero" value={pacienteFormulario.numero} min={0} onChange={handleInputChange}/>
                     </div>
 
                     <div>
@@ -137,17 +137,3 @@ function FormularioPaciente() {
     
 }export default FormularioPaciente;
 
-
-/*
-<input type="text" placeholder="Nome Completo" required />
-<input type="text" placeholder="CPF" required />
-<input type="text" placeholder="Email" required />
-<input type="text" placeholder="Telefone" required />
-<input type="text" placeholder="Uf" required />
-<input type="text" placeholder="Cidade" required />
-<input type="text" placeholder="Bairro" required />
-<input type="text" placeholder="CEP" required />
-<input type="text" placeholder="Logradouro" required />
-<input type="text" placeholder="Numero" />
-<input type="text" placeholder="Complemento" />
-*/
