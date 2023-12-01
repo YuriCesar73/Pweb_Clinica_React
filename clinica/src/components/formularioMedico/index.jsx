@@ -64,7 +64,8 @@ function FormularioMedico() {
                     //console.log(error.data);
                 })
     }
-            apiPost();
+            //apiPost();
+            console.log(medicoFormulario);
     };
 
     return(
@@ -92,10 +93,10 @@ function FormularioMedico() {
                         <label htmlFor="Especialidade"></label>
                         <select id="especialidade" name="especialiade" value={medicoFormulario.especialidade} onChange={handleInputChange} required>
                             <option value="" disabled>Selecione uma opção</option>
-                            <option value={medicoFormulario.especialidade}>Ortopedia</option>
-                            <option value={medicoFormulario.especialidade}>Cardiologia</option>
-                            <option value={medicoFormulario.especialidade}>Ginecolocia</option>
-                            <option value={medicoFormulario.especialidade}>Dermatologia</option>
+                            <option value="ORTOPEDIA">Ortopedia</option>
+                            <option value="CARDIOLOGIA">Cardiologia</option>
+                            <option value="GINECOLOGIA">Ginecolocia</option>
+                            <option value="DERMATOLOGIA">Dermatologia</option>
                         </select>
                     </div>
 
