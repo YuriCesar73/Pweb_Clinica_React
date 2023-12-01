@@ -1,6 +1,7 @@
 import axios from "axios";
 import API from "/src/API/api.jsx"
 import { useState } from "react";
+import "../formularioMedico/index.css"
 
 function FormularioMedico() {
 
@@ -64,16 +65,16 @@ function FormularioMedico() {
                     //console.log(error.data);
                 })
     }
-            //apiPost();
-            console.log(medicoFormulario);
+            apiPost();
+            
     };
 
     return(
-        <div>
+        <div className="container">
             <h1>Formulário de cadastro</h1>
             <p>Insira suas informações</p>
             <br />
-            <form action="" onSubmit={(e) => {onSubmit(e)}}>
+            <form className="form" action="" onSubmit={(e) => {onSubmit(e)}}>
                 <fieldset>
                     <div>
                         <label htmlFor="Nome"></label>
@@ -110,6 +111,7 @@ function FormularioMedico() {
                         <input type="tel" placeholder="* Telefone" id="telefone" value={medicoFormulario.telefone} onChange={handleInputChange} required/>
                     </div>
                 </fieldset>
+                <br />
 
                 <fieldset>
                     <div>
@@ -147,7 +149,7 @@ function FormularioMedico() {
                         <input type="text" placeholder="Complemento" id="complemento" value={medicoFormulario.complemento} onChange={handleInputChange} />
                     </div>
                 </fieldset>   
-                <button type="submit">Enviar</button>
+                <button className="btn" type="submit">Enviar</button>
             </form>
 
         </div>
