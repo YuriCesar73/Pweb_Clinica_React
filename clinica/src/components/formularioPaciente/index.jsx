@@ -1,6 +1,9 @@
 import axios from "axios";
 import API from "/src/API/api.jsx"
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 function FormularioPaciente() {
 
@@ -18,6 +21,8 @@ function FormularioPaciente() {
         numero: "",
         complemento: ""
     })
+
+    const history = useNavigate();
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -55,11 +60,18 @@ function FormularioPaciente() {
                 if(response.status == 201){
                     console.log(Object.keys(response));
                     console.log(response);
+                    toast.success("Cadastro feito com sucesso!");
+                    toast.info("Sua senha de acesso é o seu crm");
+
+                    setTimeout(() => {
+                        history("/")
+                    }, 4000);
+
                 }
                 }).catch((error) => {
-                    console.log("Entrei no error");
+                    toast.error("Não foi possível realizar o cadastro!");
+                    toast.error("Verifique as informações inseridas")
                     console.log(error)
-                    //console.log(error.data);
                 })
     }
             apiPost();
@@ -79,7 +91,7 @@ function FormularioPaciente() {
 
                     <div>
                         <label htmlFor="CPF"></label>
-                        <input type="text" placeholder="* CPF" id="cpf" value={pacienteFormulario.cpf} onChange={handleInputChange} required/>
+                        <input type="text" pattern="\d{3}\\d{3}\\d{3}\d{2}" placeholder="* CPF (apenas números)" id="cpf" value={pacienteFormulario.cpf} onChange={handleInputChange} required/>
                     </div>
 
                     <div>
@@ -131,6 +143,9 @@ function FormularioPaciente() {
                 </fieldset>   
                 <button type="submit">Enviar</button>
             </form>
+            <div>
+                <ToastContainer/>
+            </div>
 
         </div>
     )

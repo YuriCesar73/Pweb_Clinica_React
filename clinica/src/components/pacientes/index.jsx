@@ -39,7 +39,6 @@ function Paciente(){
                         setPaciente(listaAtualizada);
                     }
             }).catch((error) => {
-                console.log("Entrei no error");
                 console.log(error.response.data.message)
                 //console.log(error.data);
             })

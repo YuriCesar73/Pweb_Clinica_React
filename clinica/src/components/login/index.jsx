@@ -1,6 +1,6 @@
 import { useState } from "react";
 import API from "/src/API/api.jsx"
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,7 +16,6 @@ function Login(){
     const history = useNavigate();
 
     const handleInputChange = async (e)  => {
-        console.log("Cheguei aqui handleInput");
         const { id, value } = e.target;
         setLoginInfo((prevValues) => ({
           ...prevValues,
@@ -26,10 +25,8 @@ function Login(){
 
 
       const onSubmit = (e) => {
-        console.log("Cheguei aqui antes do prevent");
         e.preventDefault();
 
-        console.log("Cheguei aqui");
         let url;
         if(loginInfo.tipo == "medico"){
             url = "medico-ms/medicos/listar/" + loginInfo.senha;
@@ -41,10 +38,17 @@ function Login(){
         async function apiGetUser(){
             API.get(url).then((response) => {
                 if(response.status == 202){
-                    toast.success("Login realizado com sucesso")
+                    if(response.data.email === loginInfo.email)
+                    {
+                        toast.success("Login realizado com sucesso")
+                        setTimeout(() => {
+                            history("/home")
+                        }, 4000);
+                    }
+                    else 
+                        toast.error("Erro ao realizar o login. Verifique as informações")
                 }
                 }).catch((error) => {
-                    console.log("Entrei no error");
                     console.log(error.response.data.message)    
                     toast.error(error.response.data.message)//vermelho
                     toast.warning("Aviso")//amarelo
@@ -52,11 +56,6 @@ function Login(){
                 })
     }
      apiGetUser();
-            
-     setTimeout(() => {
-        history("/home")
-    }, 3000);
-
     };
 
 

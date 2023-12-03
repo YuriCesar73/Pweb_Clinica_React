@@ -2,6 +2,9 @@ import axios from "axios";
 import API from "/src/API/api.jsx"
 import { useState } from "react";
 import "../formularioMedico/index.css"
+import { Link, useNavigate } from "react-router-dom";
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 function FormularioMedico() {
 
@@ -20,6 +23,8 @@ function FormularioMedico() {
         numero: "",
         complemento: ""
     })
+
+    const history = useNavigate();
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -58,11 +63,17 @@ function FormularioMedico() {
                 if(response.status == 201){
                     console.log(Object.keys(response));
                     console.log(response);
+                    toast.success("Cadastro feito com sucesso!");
+                    toast.info("Sua senha de acesso é o seu crm");
+
+                    setTimeout(() => {
+                        history("/")
+                    }, 4000);
                 }
                 }).catch((error) => {
-                    console.log("Entrei no error");
                     console.log(error)
-                    //console.log(error.data);
+                    toast.error("Erro ao cadastrar verifique as informações inseridas")
+
                 })
     }
             apiPost();
@@ -85,11 +96,6 @@ function FormularioMedico() {
                         <label htmlFor="CRM"></label>
                         <input type="text" placeholder="* CRM" id="crm" value={medicoFormulario.crm} onChange={handleInputChange} required/>
                     </div>
-
-                    {/* <div>
-                        <label htmlFor="Especialidade"></label>
-                        <input type="text" placeholder="* Especialidade" id="especialidade" value={medicoFormulario.especialidade} onChange={handleInputChange} required/>
-                    </div> */}
                     <div>
                         <label htmlFor="Especialidade"></label>
                         <select id="especialidade" name="especialidade" value={medicoFormulario.especialidade} onChange={handleInputChange} required>
@@ -152,6 +158,7 @@ function FormularioMedico() {
                 <button className="btn" type="submit">Enviar</button>
             </form>
 
+            <ToastContainer/>
         </div>
     )
     
