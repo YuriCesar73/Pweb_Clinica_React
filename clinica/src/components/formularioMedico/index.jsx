@@ -92,8 +92,8 @@ function FormularioMedico() {
                     </div> */}
                     <div>
                         <label htmlFor="Especialidade"></label>
-                        <select id="especialidade" name="especialiade" value={medicoFormulario.especialidade} onChange={handleInputChange} required>
-                            <option value="" disabled>Selecione uma opção</option>
+                        <select id="especialidade" name="especialidade" value={medicoFormulario.especialidade} onChange={handleInputChange} required>
+                            <option value="" disabled>Selecione sua especialidade</option>
                             <option value="ORTOPEDIA">Ortopedia</option>
                             <option value="CARDIOLOGIA">Cardiologia</option>
                             <option value="GINECOLOGIA">Ginecolocia</option>

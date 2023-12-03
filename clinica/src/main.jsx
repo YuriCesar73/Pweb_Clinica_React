@@ -4,12 +4,13 @@ import Paciente from './components/pacientes'
 import FormularioPaciente from './components/formularioPaciente'
 import FormularioMedico from './components/formularioMedico'
 import Login from './components/login'
+import Rotas from './components/rotas'
 
 
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Login/>
+    <Rotas/>
   </React.StrictMode>,
 )

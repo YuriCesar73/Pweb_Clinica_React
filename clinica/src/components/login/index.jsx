@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "/src/API/api.jsx"
+import { Link, Navigate } from "react-router-dom";
 
 function Login(){
 
@@ -25,7 +26,7 @@ function Login(){
 
         console.log("Cheguei aqui");
         let url;
-        if(loginInfo.tipo == "Medico"){
+        if(loginInfo.tipo == "medico"){
             url = "medico-ms/medicos/listar/" + loginInfo.senha;
         }
         else {
@@ -34,7 +35,7 @@ function Login(){
         
         async function apiGetUser(){
             API.get(url).then((response) => {
-                if(response.status == 200){
+                if(response.status == 202){
                     console.log(Object.keys(response));
                     console.log(response);
                 }
@@ -58,24 +59,39 @@ function Login(){
                 id="email"
                 placeholder="Insira seu email" 
                 value={loginInfo.email} 
-                onChange={handleInputChange}/>
+                onChange={handleInputChange}
+                required
+                />
             <br />
             <input 
                 type="password"
                 id="senha" 
                 value={loginInfo.senha} 
                 onChange={handleInputChange} 
-                placeholder={loginInfo.tipo === "" ? "Insira sua senha" : loginInfo.tipo === "Paciente" ? "Insira seu cpf" : "Insira seu crm"}/>
+                placeholder={loginInfo.tipo === "" ? "Insira sua senha" : loginInfo.tipo === "paciente" ? "Insira seu cpf" : "Insira seu crm"}
+                required
+                />
             <br />
             <select id="tipo" name="tipo" required placeholder="Você é um(a): " value={loginInfo.tipo} onChange={handleInputChange}>
                 <option value="" disabled>Selecione uma opção</option>
-                <option value="Medico">Medico</option>
-                <option value="Paciente">Paciente</option>
+                <option value="medico">Medico</option>
+                <option value="paciente">Paciente</option>
             </select>
             <button type="submit">Enviar</button>
             </form>
+
+            <div>
+                <Link to={'/formulario/medico'}>
+                    <p>Você é um médico? Cadastre-se aqui</p>
+                </Link>
             
-            <button>Cadastrar-se</button>
+                <Link to={'/formulario/paciente'}>
+                    <p>Você é um paciente? Cadastre-se aqui</p>
+                </Link>
+
+            </div>
+
+            
         </div>
         
     )
