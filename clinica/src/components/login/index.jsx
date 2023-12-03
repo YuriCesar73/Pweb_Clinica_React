@@ -1,6 +1,6 @@
 import { useState } from "react";
 import API from "/src/API/api.jsx"
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,6 +13,8 @@ function Login(){
         tipo: ""
     });
 
+    const history = useNavigate();
+
     const handleInputChange = async (e)  => {
         console.log("Cheguei aqui handleInput");
         const { id, value } = e.target;
@@ -22,7 +24,6 @@ function Login(){
         }));
       };
 
-      const notify = () => toast("Wow so easy!");
 
       const onSubmit = (e) => {
         console.log("Cheguei aqui antes do prevent");
@@ -41,8 +42,6 @@ function Login(){
             API.get(url).then((response) => {
                 if(response.status == 202){
                     toast.success("Login realizado com sucesso")
-                    console.log(Object.keys(response));
-                    console.log(response);
                 }
                 }).catch((error) => {
                     console.log("Entrei no error");
@@ -54,6 +53,10 @@ function Login(){
     }
      apiGetUser();
             
+     setTimeout(() => {
+        history("/home")
+    }, 3000);
+
     };
 
 
