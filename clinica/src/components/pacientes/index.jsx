@@ -20,7 +20,7 @@ function Paciente(){
         return(
             <div>
                 <h2>Nome: {paciente.nome}</h2>
-                <h2>Email: {paciente.paciente}</h2>
+                <h2>Email: {paciente.email}</h2>
                 <h2>Nome: {paciente.cpf}</h2>
                 <button>Marcar consulta</button>
                  <button onClick={() => removerPaciente(paciente.cpf)}>Deletar</button>
@@ -50,7 +50,6 @@ function Paciente(){
 
     return(
         <>
-        <h1>Olá</h1>
         {pacientes.map((paciente) => <a key={paciente.cpf}> {listarPacientes(paciente)} </a>)}
         </>
     )
