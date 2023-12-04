@@ -13,6 +13,8 @@ function Login(){
         tipo: ""
     });
 
+    const [userInfo, setUserInfo] = useState({});
+
     const history = useNavigate();
 
     const handleInputChange = async (e)  => {
@@ -42,7 +44,7 @@ function Login(){
                     {
                         toast.success("Login realizado com sucesso")
                         setTimeout(() => {
-                            history("/home")
+                            history("/home", {state: response.data})
                         }, 4000);
                     }
                     else 
