@@ -37,11 +37,10 @@ function FormularioConsulta(){
                 }).catch((error) => {
                     toast.error("Não foi possível marcar a consulta")
                     toast.info(error.response.data.message)
-                    toast.warning(error.response.data.error)
+                    toast.warning   (error.response.data.error)
                 })
     }
 
-            console.log("Data info: " + dataFormatada)
             apiPost();
     };
 
@@ -49,7 +48,6 @@ function FormularioConsulta(){
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
-        // console.log(value);
         setConsultaInfo((prevValues) => ({
           ...prevValues,
           [id]: value
