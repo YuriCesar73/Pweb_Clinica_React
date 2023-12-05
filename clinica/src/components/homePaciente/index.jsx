@@ -22,15 +22,14 @@ function HomePaciente(){
 
 
 
-        const handleClick = (medico) => {
-            history("/formulario/consulta/medico", {
-              pathname: '/formulario/consulta/medico',
-              state: {
-                medico: medico.crm,
-                paciente: userData.cpf,
-              },
-            });
-          };
+    const handleClick = (medico) => {
+        history("/formulario/consulta", {
+            state: {
+            medico: medico.crm,
+            paciente: userData.cpf,
+            },
+        });
+        };
 
 
     function listarMedicos(medico){

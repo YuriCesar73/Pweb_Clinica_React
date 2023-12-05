@@ -12,25 +12,19 @@ function HomeMedico(){
 
     useEffect(()=>{
         let url = "paciente-ms/pacientes/listar/?page=0"
-
         API.get(url).then((response) =>{
             setPacientes(response.data);
         })
         },[]);
 
-
-
-
-
-        const handleClick = (paciente) => {
-            history("/formulario/consulta/medico", {
-              pathname: '/formulario/consulta/medico',
-              state: {
-                paciente: paciente.cpf,
-                medico: userData.crm,
-              },
-            });
-          };
+    const handleClick = (paciente) => {
+        history("/formulario/consulta", {
+            state: {
+            paciente: paciente.cpf,
+            medico: userData.crm,
+            },
+        });
+        };
 
 
     function listarPacientes(paciente){

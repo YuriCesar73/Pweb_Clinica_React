@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import API from "/src/API/api.jsx"
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function FormularioConsulta(){
     const location = useLocation();
@@ -10,11 +14,42 @@ function FormularioConsulta(){
         data: ""
     });
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const dataSelecionada = new Date(`${consultaInfo.data}T00:00:00Z`);
+        let dataFormatada = dataSelecionada.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+        dataFormatada = dataFormatada.replace(/\//g, '-'); 
+
+        let body = {
+            "medico": userData['medico'],
+            "paciente": userData['paciente'],
+            "data": dataFormatada,
+            "horario": consultaInfo.horario
+        }
+
+        let url = "consulta-ms/consulta/cadastrar";
+        async function apiPost(){
+
+            API.post(url, body).then((response) => {
+                if(response.status === 200){
+                    toast.success("Consulta marcada com sucesso!");
+                }
+                }).catch((error) => {
+                    toast.error("Não foi possível marcar a consulta")
+                    toast.info(error.response.data.message)
+                    toast.warning(error.response.data.error)
+                })
+    }
+
+            console.log("Data info: " + dataFormatada)
+            apiPost();
+    };
+
 
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
-        console.log(value);
+        // console.log(value);
         setConsultaInfo((prevValues) => ({
           ...prevValues,
           [id]: value
@@ -23,7 +58,7 @@ function FormularioConsulta(){
 
     return(
         <div>
-            <form>
+            <form onSubmit={(e) => {onSubmit(e)}}>
                 <fieldset>
                 <div>
                     <label htmlFor="crm"></label>
@@ -63,6 +98,10 @@ function FormularioConsulta(){
                 </fieldset>
                 <button type="submit">Marcar consulta</button>
             </form>
+
+            <div>
+            <ToastContainer/>
+            </div>
         </div>
     )
 }export default FormularioConsulta;

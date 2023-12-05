@@ -16,7 +16,7 @@ function Rotas(){
             <Route path="/formulario/paciente" element={<FormularioPaciente/>} />
             <Route path="/HomeMedico" element={<HomeMedico/>} />
             <Route path="/HomePaciente" element={<HomePaciente/>} />
-            <Route path="/formulario/consulta/medico" element={<FormularioConsulta/>} />
+            <Route path="/formulario/consulta" element={<FormularioConsulta/>} />
             {/* <Route path="*" element={<Erro/>}/> */}
             </Routes>
         </BrowserRouter>
