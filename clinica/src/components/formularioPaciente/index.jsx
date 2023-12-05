@@ -61,7 +61,7 @@ function FormularioPaciente() {
                     console.log(Object.keys(response));
                     console.log(response);
                     toast.success("Cadastro feito com sucesso!");
-                    toast.info("Sua senha de acesso é o seu crm");
+                    toast.info("Sua senha de acesso é o seu cpf");
 
                     setTimeout(() => {
                         history("/")
@@ -91,7 +91,7 @@ function FormularioPaciente() {
 
                     <div>
                         <label htmlFor="CPF"></label>
-                        <input type="text" pattern="\d{3}\\d{3}\\d{3}\d{2}" placeholder="* CPF (apenas números)" id="cpf" value={pacienteFormulario.cpf} onChange={handleInputChange} required/>
+                        <input type="text"  pattern="\d{3}\d{3}\d{3}\d{2}" placeholder="* CPF (apenas números)" id="cpf" value={pacienteFormulario.cpf} onChange={handleInputChange} required/>
                     </div>
 
                     <div>

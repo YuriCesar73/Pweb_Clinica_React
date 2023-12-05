@@ -2,8 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FormularioMedico from "../formularioMedico";
 import Login from "../login";
 import FormularioPaciente from "../formularioPaciente";
-import Home from "../home";
-
+import HomeMedico from "../homeMedico";
+import FormularioConsulta from "../formularioConsulta";
+import HomePaciente from "../homePaciente";
 
 function Rotas(){
 
@@ -13,7 +14,9 @@ function Rotas(){
             <Route exact path="/" element={<Login/>} />
             <Route path="/formulario/medico" element={<FormularioMedico/>} />
             <Route path="/formulario/paciente" element={<FormularioPaciente/>} />
-            <Route path="/home" element={<Home/>} />
+            <Route path="/HomeMedico" element={<HomeMedico/>} />
+            <Route path="/HomePaciente" element={<HomePaciente/>} />
+            <Route path="/formulario/consulta/medico" element={<FormularioConsulta/>} />
             {/* <Route path="*" element={<Erro/>}/> */}
             </Routes>
         </BrowserRouter>

@@ -30,11 +30,14 @@ function Login(){
         e.preventDefault();
 
         let url;
+        let rotaHome;
         if(loginInfo.tipo == "medico"){
             url = "medico-ms/medicos/listar/" + loginInfo.senha;
+            rotaHome = "/HomeMedico"
         }
         else {
             url = "paciente-ms/pacientes/listar/" + loginInfo.senha;
+            rotaHome = "/HomePaciente"
         }
         
         async function apiGetUser(){
@@ -44,7 +47,8 @@ function Login(){
                     {
                         toast.success("Login realizado com sucesso")
                         setTimeout(() => {
-                            history("/home", {state: response.data})
+
+                            history(rotaHome, {state: response.data})
                         }, 4000);
                     }
                     else 

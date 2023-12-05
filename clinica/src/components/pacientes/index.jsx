@@ -5,13 +5,13 @@ import axios from "axios";
 
 function Paciente(){
 
-    const [pacientes, setPaciente] = useState([])
+    const [pacientes, setPacientes] = useState([])
 
     useEffect(()=>{
         let url = "paciente-ms/pacientes/listar/?page=0"
 
         API.get(url).then((response) =>{
-            setPaciente(response.data);
+            setPacientes(response.data);
         })
         },[]);
 
@@ -36,7 +36,7 @@ function Paciente(){
                 API.delete(url).then((response) => {
                     if(response.status == 202){
                         let listaAtualizada = pacientes.filter(paciente => paciente.cpf != cpf)
-                        setPaciente(listaAtualizada);
+                        setPacientes(listaAtualizada);
                     }
             }).catch((error) => {
                 console.log(error.response.data.message)
