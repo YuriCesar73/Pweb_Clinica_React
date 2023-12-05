@@ -7,15 +7,21 @@ import { useEffect, useState } from "react";
 function HomePaciente(){
     const location = useLocation();
     const [medicos, setMedicos] = useState([])
+    const [consultas, setConsultas] = useState([])
     const userData = location.state;
     const history = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() =>{
         let url = "medico-ms/medicos/listar/?page=0"
-
-        API.get(url).then((response) =>{
+        let path = "consulta-ms/consulta/listar/paciente/" + userData.cpf
+        /* API.get(url).then((response) =>{
             setMedicos(response.data);
+        })*/
+
+         API.get(path).then((response) =>{
+            setConsultas(response.data);
         })
+
         },[]);
 
 
@@ -31,10 +37,36 @@ function HomePaciente(){
         });
         };
 
+        const cancelarConsulta = (consulta) => {
+            history("/formulario/consulta/cancelar", {
+                state: {
+                paciente: userData.cpf,
+                data: consulta.data,
+                horario: consulta.horario,
+                rota: "/HomePaciente"
+                },
+            });
+            };
+
+    
+    function listarConsultas(consulta){
+        return(
+        
+            <div className="card-consulta">
+                <div className="card-content-consulta">
+                    <h2>Medico: {consulta.medico}</h2>
+                    <h2>Data: {consulta.data}</h2>
+                    <h2>Horario: {consulta.horario}</h2>
+                    <button onClick={() => cancelarConsulta(consulta)}>Desmarcar consulta</button>
+                </div>
+            </div>
+        )
+    }
+
 
     function listarMedicos(medico){
 
-        console.log(Object.keys(medico))
+     
         return(
             <div className="card">
                 <div className="card-content">
@@ -74,7 +106,13 @@ function HomePaciente(){
         <div className="welcome-message">
             Olá, {userData.nome}!
         </div>
-        {medicos.map((medico) => <a key={medico.crm}> {listarMedicos(medico)} </a>)}
+        {console.log(medicos)}
+        {console.log(consultas)}
+        {medicos.length != 0 ? medicos.map((medico) => <a key={medico.crm}> {listarMedicos(medico)} </a>) : <h1>Deu erro</h1>}
+        <br />
+        <br />
+        Minhas consultas
+        {consultas.length != 0 ? consultas.map((consulta) => <a key={consulta.cpf}> {listarConsultas(consulta)} </a>): <h1>Deu erro</h1>}
         </>
     )
 }export default HomePaciente;
