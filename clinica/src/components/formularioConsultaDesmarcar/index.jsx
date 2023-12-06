@@ -15,6 +15,7 @@ function FormularioConsultaCancelar(){
     const onSubmit = (e) => {
 
         e.preventDefault();
+        
         let data = {
             "paciente": consultaData['paciente'],
             "data": consultaData['data'],
@@ -35,17 +36,12 @@ function FormularioConsultaCancelar(){
                 })
     }
 
-        // history("/HomePaciente")
-        apiDelete();
-        setTimeout(() => {
+         apiDelete();
             
-        }, 2000);
             
 
 
     };
-
-
 
     const handleInputChange = (e) => {
         let novoMotivo = e.target.value;
@@ -82,7 +78,7 @@ function FormularioConsultaCancelar(){
                 </fieldset>
                 <button type="submit">Cancelar consulta</button>
             </form>
-
+        
             <div>
             <ToastContainer/>
             </div>

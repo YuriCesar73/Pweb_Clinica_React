@@ -52,7 +52,6 @@ function HomePaciente(){
     
     function listarConsultas(consulta){
         return(
-        
             <div className="card-consulta">
                 <div className="card-content-consulta">
                     <h2>Medico: {consulta.medico}</h2>
@@ -108,11 +107,11 @@ function HomePaciente(){
             Olá, {userData.nome}!
         </div>
         
-        {medicos.length != 0 ? medicos.map((medico) => <a key={medico.crm}> {listarMedicos(medico)} </a>) : <h1>Deu erro</h1>}
+        {medicos.length != 0 ? medicos.map((medico) => <a key={medico.crm}> {listarMedicos(medico)} </a>) : <h1>Não existem médicos cadastrados ainda</h1>}
         <br />
         <br />
         Minhas consultas
-        {consultas.length != 0 ? consultas.map((consulta) => <a key={consulta.cpf + consulta.data}> {listarConsultas(consulta)} </a>): <h1>Deu erro</h1>}
+        {consultas.length != 0 ? consultas.map((consulta) => <a key={consulta.cpf + consulta.data}> {listarConsultas(consulta)} </a>): <h1>Você não tem consulta marcadas</h1>}
         </>
     )
 }export default HomePaciente;

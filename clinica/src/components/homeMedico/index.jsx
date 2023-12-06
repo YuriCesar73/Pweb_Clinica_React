@@ -32,6 +32,20 @@ function HomeMedico(){
         };
 
 
+
+
+        const cancelarConsulta = (consulta) => {
+            history("/formulario/consulta/cancelar", {
+                state: {
+                paciente: consulta.paciente,
+                data: consulta.data,
+                horario: consulta.horario,
+                rota: "/HomeMedico"
+                },
+            });
+            };
+
+
     function listarPacientes(paciente){
         return(
             <div className="card">
@@ -56,7 +70,7 @@ function HomeMedico(){
                     <h2>Paciente: {consulta.paciente}</h2>
                     <h2>Data: {consulta.data}</h2>
                     <h2>Horario: {consulta.horario}</h2>
-                    <button onClick={() => handleClick(consulta)}>Desmarcar consulta</button>
+                    <button onClick={() => cancelarConsulta(consulta)}>Desmarcar consulta</button>
                 </div>
             </div>
         )
@@ -86,12 +100,12 @@ function HomeMedico(){
             Olá, {userData.nome}!
         </div>
 
-         
-        {pacientes.map((paciente) => <a key={paciente.cpf}> {listarPacientes(paciente)} </a>)}
+         Pacientes cadastrados
+        {pacientes.length != 0 ? pacientes.map((paciente) => <a key={paciente.cpf}> {listarPacientes(paciente)} </a>) : <h1>Não existem pacientes cadastrados ainda</h1>}
         <br />
         <br />
         <h3>Minhas consultas</h3>
-        {consultas.map((consulta) => <a key={consulta.cpf}> {listarConsultas(consulta)} </a>)}
+        {consultas.length != 0 ? consultas.map((consulta) => <a key={consulta.cpf + consulta.data}> {listarConsultas(consulta)} </a>) : <h1>Você não tem consultas marcadas</h1>}
        
         </>
     )
