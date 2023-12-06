@@ -20,18 +20,13 @@ function FormularioConsultaCancelar(){
             "data": consultaData['data'],
             "horario": consultaData['horario'],
             "motivo": motivo
-        }
+        }   
 
         let url = "consulta-ms/consulta/cancelar";
         async function apiDelete(){
             API.delete(url, {data: data}).then((response) => {
-                console.log(response.status)
                 if(response.status === 202){
                     toast.success("Consulta cancelada com sucesso!");
-
-                    setTimeout(() => {
-                        history("/HomePaciente")
-                    }, 6000);
                 }
                 }).catch((error) => {
                     toast.error("Não foi possível cancelar a consulta")
@@ -40,7 +35,14 @@ function FormularioConsultaCancelar(){
                 })
     }
 
-            apiDelete();
+        // history("/HomePaciente")
+        apiDelete();
+        setTimeout(() => {
+            
+        }, 2000);
+            
+
+
     };
 
 
