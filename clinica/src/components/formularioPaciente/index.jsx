@@ -1,13 +1,11 @@
-import axios from "axios";
 import API from "/src/API/api.jsx"
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {useState } from "react";
+import {useNavigate } from "react-router-dom";
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import "../formularioPaciente/index.css"
 
 function FormularioPaciente() {
-
-
     const [pacienteFormulario, setPacienteFormulario] = useState({
         nome: "",
         cpf: "",
@@ -78,7 +76,7 @@ function FormularioPaciente() {
     };
 
     return(
-        <div>
+        <div className="container">
             <h1>Formulário de cadastro</h1>
             <p>Insira suas informações</p>
             <br />

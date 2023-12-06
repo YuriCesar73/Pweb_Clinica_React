@@ -1,10 +1,10 @@
-import axios from "axios";
 import API from "/src/API/api.jsx"
 import { useState } from "react";
 import "../formularioMedico/index.css"
 import { Link, useNavigate } from "react-router-dom";
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import "../formularioMedico/index.css"
 
 function FormularioMedico() {
 
@@ -33,6 +33,8 @@ function FormularioMedico() {
           [id]: value
         }));
       };
+
+    
       
 
     const onSubmit = (e) => {

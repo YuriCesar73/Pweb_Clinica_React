@@ -3,6 +3,7 @@ import API from "/src/API/api.jsx"
 import { Link, useNavigate } from "react-router-dom";
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import "../login/index.css"
 
 
 function Login(){
@@ -66,7 +67,7 @@ function Login(){
 
 
     return(
-        <div>
+        <div className="container">
             <h1>Login</h1>
             <form onSubmit={(e) => {onSubmit(e)}}>
             <input 
@@ -94,7 +95,6 @@ function Login(){
             </select>
             <button type="submit">Enviar</button>
             </form>
-
             <div>
                 <Link to={'/formulario/medico'}>
                     <p>Você é um médico? Cadastre-se aqui</p>
@@ -107,8 +107,6 @@ function Login(){
             <div>
                 <ToastContainer/>
             </div>
-            
-            
         </div>
         
     )

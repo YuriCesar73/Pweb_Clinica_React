@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import API from "/src/API/api.jsx"
 import { useEffect, useState } from "react";
 import "./index.css"
+import { toast } from "react-toastify";
 
 function HomeMedico(){
     const location = useLocation();
@@ -31,6 +32,15 @@ function HomeMedico(){
         });
         };
 
+        const editInfo = () => {
+            history("/formulario/consulta/edit", {
+                state: {
+                user: "medico",
+                identificador: userData.crm,
+                rota: "/HomeMedico"
+                },
+            });
+            };
 
 
 
@@ -40,7 +50,9 @@ function HomeMedico(){
                 paciente: consulta.paciente,
                 data: consulta.data,
                 horario: consulta.horario,
-                rota: "/HomeMedico"
+                rota: "/HomeMedico",
+                crm: userData.crm,
+                nome: userData.nome
                 },
             });
             };
@@ -54,7 +66,6 @@ function HomeMedico(){
                     <h2>Email: {paciente.email}</h2>
                     <h2>Cpf: {paciente.cpf}</h2>
                     <button onClick={() => handleClick(paciente)}>Marcar consulta</button>
-                    {/* <button onClick={() => removerPaciente(paciente.cpf)}>Deletar</button> */}
                 </div>
                 
         
@@ -76,18 +87,20 @@ function HomeMedico(){
         )
     }
 
-    function removerPaciente(cpf){
+    function removerMedico(crm){
 
-        let url = `paciente-ms/pacientes/apagar/${cpf}`;
+        let url = `medico-ms/medicos/apagar/${crm}`;
         async function apiDelete(){
                 API.delete(url).then((response) => {
                     if(response.status == 202){
-                        let listaAtualizada = pacientes.filter(paciente => paciente.cpf != cpf)
-                        setPacientes(listaAtualizada);
+
+                        toast.success("Conta removida com sucesso!");
+                        setTimeout(() => {
+                            history("/")
+                        }, 3000);
                     }
             }).catch((error) => {
-                console.log(error.response.data.message)
-                //console.log(error.data);
+                toast.error("Não foi possível remover a conta")
             })
         }
 
@@ -97,16 +110,45 @@ function HomeMedico(){
     return(
         <>
         <div className="welcome-message">
-            Olá, {userData.nome}!
+          <h1>Olá, {userData.nome}!</h1>
         </div>
-
-         Pacientes cadastrados
-        {pacientes.length != 0 ? pacientes.map((paciente) => <a key={paciente.cpf}> {listarPacientes(paciente)} </a>) : <h1>Não existem pacientes cadastrados ainda</h1>}
-        <br />
-        <br />
-        <h3>Minhas consultas</h3>
-        {consultas.length != 0 ? consultas.map((consulta) => <a key={consulta.cpf + consulta.data}> {listarConsultas(consulta)} </a>) : <h1>Você não tem consultas marcadas</h1>}
-       
-        </>
+  
+        <div className="column-container">
+          <div className="column">
+            <h2>Pacientes cadastrados</h2>
+            {pacientes.length !== 0 ? (
+              pacientes.map((paciente) => (
+                <a key={paciente.cpf}> {listarPacientes(paciente)} </a>
+              ))
+            ) : (
+              <h3>Não existem pacientes cadastrados ainda</h3>
+            )}
+          </div>
+  
+          <div className="column">
+            <h2>Minhas consultas</h2>
+            {consultas.length !== 0 ? (
+              consultas.map((consulta) => (
+                <a key={consulta.cpf + consulta.data}>
+                  {" "}
+                  {listarConsultas(consulta)}{" "}
+                </a>
+              ))
+            ) : (
+              <h3>Você não tem consultas marcadas</h3>
+            )}
+          </div>
+        </div>
+  
+        <div>
+          <button onClick={editInfo} type="submit">
+            Atualizar meus dados
+          </button>
+          <br />
+          <button onClick={() => removerMedico(userData.crm)} type="submit">
+            Desativar minha conta
+          </button>
+        </div>
+      </>
     )
 }export default HomeMedico;

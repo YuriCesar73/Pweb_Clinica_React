@@ -6,6 +6,7 @@ import HomeMedico from "../homeMedico";
 import FormularioConsulta from "../formularioConsulta";
 import HomePaciente from "../homePaciente";
 import FormularioConsultaCancelar from "../formularioConsultaDesmarcar";
+import FormularioEdit from "../formularioEdit";
 
 function Rotas(){
 
@@ -18,6 +19,7 @@ function Rotas(){
             <Route path="/HomeMedico" element={<HomeMedico/>} />
             <Route exact path="/HomePaciente" element={<HomePaciente/>} />
             <Route path="/formulario/consulta" element={<FormularioConsulta/>} />
+            <Route path="/formulario/consulta/edit" element={<FormularioEdit/>} />
             <Route path="/formulario/consulta/cancelar" element={<FormularioConsultaCancelar/>} />
             {/* <Route path="*" element={<Erro/>}/> */}
             </Routes>

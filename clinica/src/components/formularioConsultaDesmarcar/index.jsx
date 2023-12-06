@@ -28,6 +28,16 @@ function FormularioConsultaCancelar(){
             API.delete(url, {data: data}).then((response) => {
                 if(response.status === 202){
                     toast.success("Consulta cancelada com sucesso!");
+                    
+                    setTimeout(() => {
+                        history(consultaData.rota, {
+                            state: {
+                                cpf: consultaData['paciente'],
+                                crm: consultaData['medico'],
+                                nome: consultaData.nome
+                            }
+                        });
+                    }, 3000);
                 }
                 }).catch((error) => {
                     toast.error("Não foi possível cancelar a consulta")

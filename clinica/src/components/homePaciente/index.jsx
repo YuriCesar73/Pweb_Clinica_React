@@ -1,8 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import API from "/src/API/api.jsx"
 import { useEffect, useState } from "react";
-
-
+import { toast } from "react-toastify";
 
 function HomePaciente(){
     const location = useLocation();
@@ -22,10 +21,17 @@ function HomePaciente(){
          API.get(path).then((response) =>{
             setConsultas(response.data);
         })
-
         },[]);
 
-
+    const editInfo = () => {
+        history("/formulario/consulta/edit", {
+            state: {
+            user: "paciente",
+            identificador: userData.cpf,
+            rota: "/HomePaciente"
+            },
+        });
+        };
 
 
 
@@ -38,16 +44,17 @@ function HomePaciente(){
         });
         };
 
-        const cancelarConsulta = (consulta) => {
-            history("/formulario/consulta/cancelar", {
-                state: {
-                paciente: userData.cpf,
-                data: consulta.data,
-                horario: consulta.horario,
-                rota: "/HomePaciente"
-                },
-            });
-            };
+    const cancelarConsulta = (consulta) => {
+        history("/formulario/consulta/cancelar", {
+            state: {
+            paciente: userData.cpf,
+            data: consulta.data,
+            horario: consulta.horario,
+            rota: "/HomePaciente",
+            nome: userData.nome
+            },
+        });
+        };
 
     
     function listarConsultas(consulta){
@@ -65,8 +72,6 @@ function HomePaciente(){
 
 
     function listarMedicos(medico){
-
-     
         return(
             <div className="card">
                 <div className="card-content">
@@ -75,43 +80,69 @@ function HomePaciente(){
                     <h2>Crm: {medico.crm}</h2>
                     <h2>Especialidade: {medico.especialidade}</h2>
                     <button onClick={() => handleClick(medico)}>Marcar consulta</button>
-                    {/* <button onClick={() => removerPaciente(paciente.cpf)}>Deletar</button> */}
                 </div>
-                
-        
             </div>
         )
     }
 
-    // function removerPaciente(cpf){
+     function removerPaciente(cpf) {
+         let url = `paciente-ms/pacientes/apagar/${cpf}`;
+         async function apiDelete(){
+                 API.delete(url).then((response) => {
+                     if(response.status == 202){
+                        toast.success("Conta removida com sucesso!");
+                        setTimeout(() => {
+                            history("/")
+                        }, 3000);
+                    }
+             }).catch((error) => {
+                 toast.error("Não foi possível remover a conta");
+             })
+         }
 
-    //     let url = `paciente-ms/pacientes/apagar/${cpf}`;
-    //     async function apiDelete(){
-    //             API.delete(url).then((response) => {
-    //                 if(response.status == 202){
-    //                     let listaAtualizada = pacientes.filter(paciente => paciente.cpf != cpf)
-    //                     setPacientes(listaAtualizada);
-    //                 }
-    //         }).catch((error) => {
-    //             console.log(error.response.data.message)
-    //             //console.log(error.data);
-    //         })
-    //     }
-
-    //     apiDelete();
-    // }
+          apiDelete();
+     }
 
     return(
         <>
         <div className="welcome-message">
-            Olá, {userData.nome}!
+          <h1>Olá, {userData.nome}!</h1>
         </div>
-        
-        {medicos.length != 0 ? medicos.map((medico) => <a key={medico.crm}> {listarMedicos(medico)} </a>) : <h1>Não existem médicos cadastrados ainda</h1>}
-        <br />
-        <br />
-        Minhas consultas
-        {consultas.length != 0 ? consultas.map((consulta) => <a key={consulta.cpf + consulta.data}> {listarConsultas(consulta)} </a>): <h1>Você não tem consulta marcadas</h1>}
-        </>
+  
+        <div className="column-container">
+          <div className="column">
+            <h2>Médicos cadastrados</h2>
+            {medicos.length !== 0 ? (
+              medicos.map((medico) => (
+                <a key={medico.crm}> {listarMedicos(medico)} </a>
+              ))
+            ) : (
+              <h3>Não existem médicos cadastrados ainda</h3>
+            )}
+          </div>
+  
+          <div className="column">
+            <h2>Minhas consultas</h2>
+            {consultas.length !== 0 ? (
+              consultas.map((consulta) => (
+                <a key={consulta.cpf + consulta.data}>
+                  {" "}
+                  {listarConsultas(consulta)}{" "}
+                </a>
+              ))
+            ) : (
+              <h3>Você não tem consultas marcadas</h3>
+            )}
+          </div>
+        </div>
+  
+        <div>
+          <button onClick={editInfo}>Atualizar meus dados</button>
+          <br />
+          <button onClick={() => removerPaciente(userData.cpf)}>
+            Excluir conta
+          </button>
+        </div>
+      </>
     )
 }export default HomePaciente;
